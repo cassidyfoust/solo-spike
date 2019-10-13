@@ -8,12 +8,8 @@ class App extends Component {
 
   state = {
     genreName:'',
-    genreId: 0
+    genreId: 0,
   }
-
-  // componentDidMount(){
-  //   this.getRandomGif()
-  // }
 
   getMovie = () => {
     axios({
@@ -22,7 +18,7 @@ class App extends Component {
     })
       .then((response) => {
         console.log('the response is:', response)
-        // this.props.dispatch({ type: 'SET_RANDOM', payload: response.data })
+        this.props.dispatch({ type: 'SET_RANDOM', payload: response.data })
       })
       .catch(error => {
         console.log('error:', error)
@@ -224,12 +220,17 @@ class App extends Component {
         </select>
         <br></br>
         <button onClick={this.handleClick}>Show me a movie I'd like!</button>
-        {/* <p><img src={this.props.reduxState.random}></img></p> */}
+        </div>
+        <div className="movie-body">
+          <h3>Try this!</h3>
+          <h5>{this.props.reduxState.random.original_title}</h5>
+          <img src={this.props.reduxState.random.poster_path}></img>
         </div>
       </div>
     );
   }
 }
+
 
 const StateToProps = (reduxState) => ({
   reduxState
