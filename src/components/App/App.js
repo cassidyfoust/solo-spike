@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     genreName:'',
     genreId: 0,
+    imgPath: ''
   }
 
   getMovie = () => {
@@ -19,6 +20,10 @@ class App extends Component {
       .then((response) => {
         console.log('the response is:', response)
         this.props.dispatch({ type: 'SET_RANDOM', payload: response.data })
+        this.setState({
+          ...this.state,
+          imgPath: `https://image.tmdb.org/t/p/w200/${response.data.poster_path}`
+        })
       })
       .catch(error => {
         console.log('error:', error)
@@ -224,7 +229,9 @@ class App extends Component {
         <div className="movie-body">
           <h3>Try this!</h3>
           <h5>{this.props.reduxState.random.original_title}</h5>
-          <img src={this.props.reduxState.random.poster_path}></img>
+          <img src={this.state.imgPath}></img>
+          <h5>Description:</h5>
+          {this.props.reduxState.random.overview}
         </div>
       </div>
     );
